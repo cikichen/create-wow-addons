@@ -14,7 +14,7 @@ program
     .version("0.0.1")
     // .command('module')
     // .alias('m')
-    .description('创建新的模块')
+    .description('Create an empty plugin project.')
     .action(option => {
 
         // if (!program.args[0]) {
@@ -36,7 +36,7 @@ program
         let prompts = [];
 
         console.log('');
-        console.log(chalk.red('准备生成工程'));
+        console.log(chalk.red('Prepare to create a project...'));
         console.log('');
 
         if (config.moduleTitle !== 'string') {
@@ -46,7 +46,7 @@ program
                 message: 'Title:',
                 validate: function (input) {
                     if (!input) {
-                        return '不能为空'
+                        return 'Can not be empty.'
                     }
                     return true
                 }
