@@ -1,6 +1,6 @@
 {
   "name": "create-wow-addons",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "wow addons cli",
   "main": "index.js",
   "scripts": {

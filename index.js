@@ -39,13 +39,13 @@ function createFile(answers) {
     console.log('');
     console.log(chalk.green('We suggest that you begin by typing:'));
     console.log('');
-    console.log('cd' + `${answers.moduleTitle}`);
+    console.log('cd ' + `${answers.moduleTitle}`);
     console.log('');
     console.log('For Azeroth!');
 }
 
 program
-    .version("1.0.1")
+    .version("1.0.2")
     .description('Create an empty plugin project.')
     .action(option => {
         let config = _.assign({
