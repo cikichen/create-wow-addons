@@ -10,19 +10,44 @@ const fs = require("fs");
 const path = require("path");
 const program = new commander.Command();
 
+function createFile(answers) {
+    const spinner = ora(chalk.green('Download in progress...')).start();
+    let filePath = answers.moduleTitle;
+
+    spinner.color = 'yellow';
+    spinner.text = `Loading ${chalk.red('Generating file...')}`;
+
+    if (!fs.existsSync(filePath)) {
+        fs.mkdirSync(filePath);
+    }
+
+    spinner.succeed();
+
+    fs.writeFileSync(filePath + path.sep + answers.moduleTitle + '.toc', '## Interface: ' + answers.moduleInterface + '\n## Author: ' + answers.moduleAuthor + '\n## Title: ' + answers.moduleTitle + '\n## Notes: ' + answers.moduleNotes + '\n## Version: ' + answers.moduleVersion);
+
+    if (answers.moduleHasVariables) {
+        fs.appendFileSync(filePath + path.sep + answers.moduleTitle + '.toc', '\n## SavedVariables: ' + answers.moduleSavedVariables + '\n## SavedVariablesPerCharacter: ' + answers.moduleSavedVariablesPerCharacter);
+    }
+
+    fs.appendFileSync(filePath + path.sep + answers.moduleTitle + '.toc', '\n\n' + answers.moduleTitle + '.lua');
+
+    fs.writeFileSync(filePath + path.sep + answers.moduleTitle + '.lua', '');
+    spinner.color = 'red';
+    spinner.text = `Loading ${chalk.red('Created')}`;
+
+    spinner.succeed();
+    console.log('');
+    console.log(chalk.green('We suggest that you begin by typing:'));
+    console.log('');
+    console.log('cd' + `${answers.moduleTitle}`);
+    console.log('');
+    console.log('For Azeroth!');
+}
+
 program
-    .version("0.0.1")
-    // .command('module')
-    // .alias('m')
+    .version("1.0.1")
     .description('Create an empty plugin project.')
     .action(option => {
-
-        // if (!program.args[0]) {
-        //     console.log(chalk.green('请输入项目名'));
-        //     console.log(chalk.blue('create-wow-addons <template>'));
-        //     return
-        // }
-
         let config = _.assign({
             moduleTitle: null,
             moduleAuthor: '',
@@ -132,31 +157,3 @@ program
     });
 
 program.parse(process.argv);
-
-function createFile(answers) {
-    const spinner = ora(chalk.green('Download in progress...')).start();
-    let filePath = answers.moduleTitle;
-
-    spinner.color = 'yellow';
-    spinner.text = `Loading ${chalk.red('Generating file...')}`;
-
-    if (!fs.existsSync(filePath)) {
-        fs.mkdirSync(filePath);
-    }
-
-    spinner.succeed();
-
-    fs.writeFileSync(filePath + path.sep + answers.moduleTitle + '.toc', '## Interface: ' + answers.moduleInterface + '\n## Author: ' + answers.moduleAuthor + '\n## Title: ' + answers.moduleTitle + '\n## Notes: ' + answers.moduleNotes + '\n## Version: ' + answers.moduleVersion);
-
-    if (answers.moduleHasVariables) {
-        fs.appendFileSync(filePath + path.sep + answers.moduleTitle + '.toc', '\n## SavedVariables: ' + answers.moduleSavedVariables + '\n## SavedVariablesPerCharacter: ' + answers.moduleSavedVariablesPerCharacter);
-    }
-
-    fs.appendFileSync(filePath + path.sep + answers.moduleTitle + '.toc', '\n\n' + answers.moduleTitle + '.lua');
-
-    fs.writeFileSync(filePath + path.sep + answers.moduleTitle + '.lua', '');
-    spinner.color = 'red';
-    spinner.text = `Loading ${chalk.red('Created')}`;
-
-    spinner.succeed();
-}
