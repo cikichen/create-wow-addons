@@ -45,7 +45,7 @@ function createFile(answers) {
 }
 
 program
-    .version("1.0.2")
+    .version("1.0.3")
     .description('Create an empty plugin project.')
     .action(option => {
         let config = _.assign({

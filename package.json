@@ -1,6 +1,6 @@
 {
   "name": "create-wow-addons",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "wow addons cli",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "author": "simon",
   "license": "ISC",
+  "keywords": ["wow","addons","cli"],
   "dependencies": {
     "chalk": "^2.4.2",
     "commander": "latest",
